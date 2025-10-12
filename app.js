@@ -30,3 +30,13 @@ app.get('/about', (req, res) => {
     res.sendFile('./views/about.html', { root: __dirname});
 });
 
+// redirect
+// another get handle for the url we want to redirect 
+app.get('/about-us', (req, res) => {
+    res.redirect('/about'); // redirects to this page & automatically sets the status code
+});
+
+// 404 
+app.use((req, res) => { // .use() to create middleware & fire middleware functions in Express
+    res.status(404).sendFile('./views/404.html', { root: __dirname}) // have to manually set a 404 error
+}); 
