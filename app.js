@@ -3,40 +3,31 @@ const express = require('express'); // returns a function & storing in express
 // express app
 const app = express(); // invoking that function to create an instance of Express
 
+// register view engine
+app.set('view engine', 'ejs'); // .set() lets configure application settings, one of these settings is view engine 
+                            // ejs gonna be used to create templates 
+
 
 // listen for requests, second argu: default value of the argument is localhost
 app.listen(3000); // returns instance of the server
 
-// listen for a get request
-// app.get('/', (req, res) => { 
-//     // not a good way to send HTML to the browser
-//     res.send('<p>home</p>'); // infers the type of content trying to send to the browser & automatically sets the content type header
-//                 // infers status code too
 
-// }); // two argus: 1: path to url( here will be root of domain ), 2: fire function of request + response object
-// // req: info about the request such as url or the method i.e get, post. 
+app.get('/', (req, res) => {
+    // render a view 
+    res.render('index'); // what the view is called minus the extension
+    // gonna look at the views folder automatically finding this view name, use ejs view engine to render that & send it back the browser
+});
 
-// app.get('/about', (req, res) => { 
-//     res.send('<p>about</p>'); 
-// })
+app.get('/about', (req, res) => {
+    res.render('about');
+});
 
-
-app.get('/', (req, res) => { 
-    res.sendFile('./views/index.html', { root: __dirname});
+app.get('/blogs/create', (req,res) => {
+    res.render('create');
+})
+app.use((req, res) => {
+    res.status(404).render('404');
 });
 
 
-app.get('/about', (req, res) => { 
-    res.sendFile('./views/about.html', { root: __dirname});
-});
 
-// redirect
-// another get handle for the url we want to redirect 
-app.get('/about-us', (req, res) => {
-    res.redirect('/about'); // redirects to this page & automatically sets the status code
-});
-
-// 404 
-app.use((req, res) => { // .use() to create middleware & fire middleware functions in Express
-    res.status(404).sendFile('./views/404.html', { root: __dirname}) // have to manually set a 404 error
-}); 
