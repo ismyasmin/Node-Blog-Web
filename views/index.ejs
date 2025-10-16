@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<%- include('./partials/head.ejs') %>
 <html lang ="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +9,7 @@
 
 <body>
 
-    <%- include('./partials/nav') %>
+    <%- include('./partials/nav.ejs') %>
     
     <div class="blogs content">
         <h2>All Blogs</h2> <!--close ejs here because now templates will be outputted-->
@@ -21,5 +22,7 @@
             <p>There are no blogs to display!</p>
         <% }%>
     </div>
+
+    <%- include('./partials/footer.ejs') %>
 </body>
 </html>
