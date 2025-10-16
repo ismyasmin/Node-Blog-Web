@@ -13,20 +13,26 @@ app.listen(3000); // returns instance of the server
 
 
 app.get('/', (req, res) => {
-    // render a view 
-    res.render('index'); // what the view is called minus the extension
+    const blogs = [
+            {title: 'Yoshi finds eggs', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+            {title: 'Mario finds stars', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+            {title: 'How to defeat bowser', snippet: 'Lorem ipsum dolor sit amet consectetur'},
+    ];
+    
+    // render a view, pass data into a view
+    res.render('index', {title: 'Home', blogs}); // what the view is called minus the extension, object in second argu  whch is gonna get sent into ejs file
     // gonna look at the views folder automatically finding this view name, use ejs view engine to render that & send it back the browser
 });
 
 app.get('/about', (req, res) => {
-    res.render('about');
+    res.render('about', {title: 'About'});
 });
 
 app.get('/blogs/create', (req,res) => {
-    res.render('create');
+    res.render('create', {title: 'Create'});
 })
 app.use((req, res) => {
-    res.status(404).render('404');
+    res.status(404).render('404', {title: '404'});
 });
 
 
