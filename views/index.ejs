@@ -3,24 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, inital-scale=1.0">
-<title>Node.js ind</title>
+<title>Node.js ind | <%= title%></title>
 </head>
 
 <body>
-    <h1>Home</h1>
-    <nav>
-        <div class="site-title"
-            <a href="/"><h1>Node Blog</h1></a>
-            <p>Node Blog Site</p>
-        </div>
-        <ul>
-            <li><a href="/">Blogs</a></li>
-            <li><a href="/about">About</a></li>
-            <li><a href="/blogs/create">New Blog</a></li>
-        </ul>
-    </nav>
+
+    <%- include('./partials/nav') %>
+    
     <div class="blogs content">
-        <h2>All Blogs</h2>
+        <h2>All Blogs</h2> <!--close ejs here because now templates will be outputted-->
+        <%if (blogs.length >  0) {%>
+            <% blogs.forEach(blog => {%>
+                <h3 class="title"><%= blog.title %></h3>
+                <p class="snippet"><%= blog.snippet%></p>
+                <% }) %>
+         <%} else {%>
+            <p>There are no blogs to display!</p>
+        <% }%>
     </div>
 </body>
 </html>
