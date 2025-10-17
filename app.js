@@ -1,7 +1,9 @@
 const express = require('express'); // returns a function & storing in express
+const morgan =require('morgan');
 
 // express app
 const app = express(); // invoking that function to create an instance of Express
+
 
 // register view engine
 app.set('view engine', 'ejs'); // .set() lets configure application settings, one of these settings is view engine 
@@ -11,6 +13,8 @@ app.set('view engine', 'ejs'); // .set() lets configure application settings, on
 // listen for requests, second argu: default value of the argument is localhost
 app.listen(3000); // returns instance of the server
 
+app.use(express.static('public')) // setting up the static files
+app.use(morgan('dev')); // dictates how it's gonna be formatted what is logged to the console
 
 app.get('/', (req, res) => {
     const blogs = [

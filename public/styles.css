@@ -1,0 +1,106 @@
+        /* import google font for consistent typography across all pages */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif:wght@400;700&display=swap');
+      
+        /* set main layout for the body */
+        body {
+          max-width: 1200px; /* limit page width for better readability */
+          margin: 20px auto; /* center content horizontally */
+          padding: 0 20px; /* add space on left and right */
+          font-family: 'Noto Serif', serif; /* use clean serif font */
+        }
+      
+        /* reset default browser styles for common elements */
+        p, h1, h2, h3, a, ul {
+          margin: 0;
+          padding: 0;
+          text-decoration: none; /* remove underline from links */
+          color: #222; /* set text color */
+        }
+      
+        /* nav and footer section styling */
+        nav {
+          display: flex; /* align items side by side */
+          justify-content: space-between; /* space between logo and links */
+          margin-bottom: 60px; /* add space below nav */
+          padding-bottom: 10px; /* add padding below items */
+          border-bottom: 1px solid #ddd; /* add light border line */
+          text-transform: uppercase; /* make nav text all caps */
+        }
+      
+        nav ul {
+          display: flex; /* display nav links horizontally */
+          justify-content: space-between; /* even space between links */
+          align-items: flex-end; /* align bottom of links */
+        }
+      
+        nav li {
+          list-style-type: none; /* remove bullets */
+          margin-left: 20px; /* space between each link */
+        }
+      
+        nav h1 {
+          font-size: 3em; /* make site title large */
+        }
+      
+        nav p, nav a {
+          color: #777; /* light gray for secondary text */
+          font-weight: 300; /* thinner font weight */
+        }
+      
+        footer {
+          color: #777; /* match footer color with nav text */
+          text-align: center; /* center footer text */
+          margin: 80px auto 20px; /* add space above and below */
+        }
+      
+        /* headings */
+        h2 {
+          margin-bottom: 40px; /* space under section titles */
+        }
+      
+        h3 {
+          text-transform: capitalize; /* capitalize first letter */
+          margin-bottom: 8px; /* small space below blog titles */
+        }
+      
+        /* general page content */
+        .content {
+          margin-left: 20px; /* small indent for layout */
+        }
+      
+        /* index page styles placeholder */
+      
+        /* blog details page styles placeholder */
+      
+        /* create blog page styles */
+        .create-blog form {
+          max-width: 400px; /* limit form width */
+          margin: 0 auto; /* center form */
+        }
+      
+        .create-blog input,
+        .create-blog textarea {
+          display: block; /* stack fields vertically */
+          width: 100%; /* stretch inputs full width */
+          margin: 10px 0; /* space between inputs */
+          padding: 8px; /* inner padding for readability */
+        }
+      
+        .create-blog label {
+          display: block; /* make labels sit above fields */
+          margin-top: 24px; /* space before each label */
+        }
+      
+        textarea {
+          height: 120px; /* set height for body field */
+        }
+      
+        .create-blog button {
+          margin-top: 20px; /* space above button */
+          background: crimson; /* set button color */
+          color: white; /* white text for contrast */
+          padding: 6px; /* padding inside button */
+          border: 0; /* remove border */
+          font-size: 1.2em; /* make text slightly larger */
+          cursor: pointer; /* show pointer on hover */
+        }  
