@@ -1,17 +1,22 @@
 const express = require('express'); // returns a function & storing in express
-const morgan =require('morgan');
+const morgan = require('morgan');
+const mongoose = require('mongoose');
 
 // express app
 const app = express(); // invoking that function to create an instance of Express
 
+// connect to mongodb
+const dbURI = "mongodb+srv://Yoshi:pass123@nodetuts.vprzzw2.mongodb.net/?retryWrites=true&w=majority&appName=nodetutss"
+mongoose.connect(dbURI) // asynchronous task, returns a promise 
+    .then((result) => app.listen(3000)) // gonna fire function after connection - listen for requests, second argu: default value of the argument is localhost. returns instance of the server
+    .catch((err) => console.log(err));
 
 // register view engine
 app.set('view engine', 'ejs'); // .set() lets configure application settings, one of these settings is view engine 
                             // ejs gonna be used to create templates 
 
 
-// listen for requests, second argu: default value of the argument is localhost
-app.listen(3000); // returns instance of the server
+
 
 app.use(express.static('public')) // setting up the static files
 app.use(morgan('dev')); // dictates how it's gonna be formatted what is logged to the console
