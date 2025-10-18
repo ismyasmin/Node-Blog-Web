@@ -16,7 +16,8 @@ mongoose.connect(dbURI) // asynchronous task, returns a promise
 app.set('view engine', 'ejs'); // .set() lets configure application settings, one of these settings is view engine 
                             // ejs gonna be used to create templates 
 
-app.use(express.static('public')) // setting up the static files
+app.use(express.static('public')); // setting up the static files
+app.use(express.urlencoded({ extended: true})); // takes all URL encoded data & passes into an object that can be used on the request object (accepts form data)
 app.use(morgan('dev')); // dictates how it's gonna be formatted what is logged to the console
 
 
@@ -30,7 +31,7 @@ app.get('/about', (req, res) => {
 
 app.get('/blogs/create', (req,res) => {
     res.render('create', {title: 'Create'});
-})
+});
 
 // blog routes
 app.get('/blogs', (req, res) => {
@@ -41,7 +42,22 @@ app.get('/blogs', (req, res) => {
      .catch((err) => {
         console.log(err);
      })
-})
+});
+
+app.post('/blogs', (req, res) =>{
+    const blog = new Blog(req.body); // passing object that was created on the form
+
+    blog.save()
+     .then((result)=> {
+        res.redirect('/blogs');
+
+     })
+     .catch((err) =>{
+        console.log(err);
+     })
+   
+});
+
 
 
 app.use((req, res) => {
