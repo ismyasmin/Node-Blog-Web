@@ -22,8 +22,8 @@ const blogSchema = new Schema({  // creates new instance of a schema object
 
 
 // create model based on the schema
-const Blog = mongoose.model('Blog', blogSchema)// model are given with a capital letter
+const Blog = mongoose.model('Blog', blogSchema);// model are given with a capital letter
                                     // first argument; define the name of this model which should be the singular of the collection name & store it inside a constant (const Blog)
                                     // second argument is going to be the schema the model will be based on
                                     
-model.exports = Blog; // export to be used elsewhere in the project
+module.exports = Blog; // export to be used elsewhere in the project
