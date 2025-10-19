@@ -58,6 +58,18 @@ app.post('/blogs', (req, res) =>{
    
 });
 
+app.get('/blogs/:id', (req, res) => {
+    const id = req.params.id; // : to denote a ramp parameter
+    Blog.findById(id)
+     .then((result)=>{ // result will be the single blog based on this id
+        res.render('details', { blog: result, title: 'Blog Details'})
+     })
+     .catch((err)=>{
+        console.log(err);
+     })
+
+}); 
+
 
 
 app.use((req, res) => {
