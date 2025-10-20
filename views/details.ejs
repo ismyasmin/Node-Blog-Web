@@ -8,10 +8,29 @@
     <h2><%= blog.title %></h2>
     <div class="content">
       <p><%= blog.body %></p>
-    </div>
-    
+    </div> <!--data attribute - can add custom attribute, set to a value which is gonna be the id that'll be deleted -->
+    <a class="delete" data-doc="<%= blog._id %>">delete</a> 
   </div>
 
+  <!-- Using fetch API, going to send a delete request to delete that id.
+ Using vanilla javascript that's running on the front-end, not js running on the server-->
+
+ <script>
+    const trashcan = document.querySelector('a.delete'); // gonna grab onto the element "delete"
+
+    trashcan.addEventListener('click', (e) => {
+        const endpoint = `/blogs/${trashcan.dataset.doc}` // store it in a const to reference it later, contains blog id
+
+
+        fetch(endpoint, {
+            method: 'DELETE'
+        }) // send to the endpoint, pass in an object (option object for fetch API to say what type of request to send)
+        .then((response)=>{response.json}) // response is the json data that comes back to us. response.json returns another promise where it passes this json data into an acutal js object that can be used
+        .then((data)=> window.location.href = data.redirect) // access to the js object 
+        .catch(err => console.log(err));
+    })
+
+ </script> <!-- anything inside this script tag gonna run on the browser when it reaches the browser, not on the server-->
   <%- include("./partials/footer.ejs") %>
 
 </body>

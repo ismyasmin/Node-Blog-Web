@@ -70,7 +70,20 @@ app.get('/blogs/:id', (req, res) => {
 
 }); 
 
+app.delete('/blogs/:id', (req, res) => {
+     const id = req.params.id;
 
+     Blog.findByIdAndDelete(id)
+      .then((result) => {
+        res.json({ redirect: '/blogs'}) // send back JSON to the front end , the browser - gonna be json object
+                // when sending AJAX request, in node you can't use redirect as a response, have to send JSON or text data back to the browser
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+});
+
+// handler for delete request
 
 app.use((req, res) => {
     res.status(404).render('404', {title: '404'});
