@@ -1,7 +1,7 @@
 const express = require('express'); // returns a function & storing in express
 const morgan = require('morgan');
 const mongoose = require('mongoose');
-const Blog = require('./models/blogs');
+const blogRoutes = require('./routes/blogRoutes');
 
 // express app
 const app = express(); // invoking that function to create an instance of Express
@@ -9,7 +9,10 @@ const app = express(); // invoking that function to create an instance of Expres
 // connect to mongodb
 const dbURI = "mongodb+srv://Yoshi:pass123@nodetuts.vprzzw2.mongodb.net/node-tuts?retryWrites=true&w=majority&appName=nodetutss"
 mongoose.connect(dbURI) // asynchronous task, returns a promise 
-    .then((result) => app.listen(3000)) // gonna fire function after connection - listen for requests, second argu: default value of the argument is localhost. returns instance of the server
+    .then((result) => {
+        console.log('connected to mongodb');
+        app.listen(3000, () => console.log('server running on port 3000'))
+    }) // gonna fire function after connection - listen for requests, second argu: default value of the argument is localhost. returns instance of the server
     .catch((err) => console.log(err));
 
 // register view engine
@@ -29,62 +32,11 @@ app.get('/about', (req, res) => {
     res.render('about', {title: 'About'});
 });
 
-app.get('/blogs/create', (req,res) => {
-    res.render('create', {title: 'Create'});
-});
-
 // blog routes
-app.get('/blogs', (req, res) => {
-    Blog.find().sort({ createdAt: -1}) // descending order - gonna go from the newest to the oldest
-     .then((result) => {
-        res.render('index', {title: 'All Blogs', blogs: result}) // render index view & pass in some data
-     })
-     .catch((err) => {
-        console.log(err);
-     })
-});
+app.use('/blogs', blogRoutes) // gonna apply all handlers in blogRoutes into the app
 
-app.post('/blogs', (req, res) =>{
-    const blog = new Blog(req.body); // passing object that was created on the form
-
-    blog.save()
-     .then((result)=> {
-        res.redirect('/blogs');
-
-     })
-     .catch((err) =>{
-        console.log(err);
-     })
-   
-});
-
-app.get('/blogs/:id', (req, res) => {
-    const id = req.params.id; // : to denote a ramp parameter
-    Blog.findById(id)
-     .then((result)=>{ // result will be the single blog based on this id
-        res.render('details', { blog: result, title: 'Blog Details'})
-     })
-     .catch((err)=>{
-        console.log(err);
-     })
-
-}); 
-
-app.delete('/blogs/:id', (req, res) => {
-     const id = req.params.id;
-
-     Blog.findByIdAndDelete(id)
-      .then((result) => {
-        res.json({ redirect: '/blogs'}) // send back JSON to the front end , the browser - gonna be json object
-                // when sending AJAX request, in node you can't use redirect as a response, have to send JSON or text data back to the browser
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
-});
 
 // handler for delete request
-
 app.use((req, res) => {
     res.status(404).render('404', {title: '404'});
 });
