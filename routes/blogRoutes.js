@@ -3,11 +3,11 @@ const blogController = require('../controllers/blogsController') // double . to 
 const router = express.Router(); // creates new instance  of a router object
 
 
+router.get('/create', blogController.blog_create_get);
+
 router.get('/', blogController.blog_index);
 
 router.post('/', blogController.blog_create_post) 
-
-router.get('blogs/create', blogController.blog_create_get);
 
 router.get('/:id', blogController.blog_detail);
 
